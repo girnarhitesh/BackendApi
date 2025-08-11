@@ -1,0 +1,25 @@
+{
+    "projectId": "आपका-vercel-project-id"
+  }
+  ```आपका-vercel-project-id` की जगह पर, जब आप Vercel पर project create करेंगे, तो आपको एक unique ID मिलेगी, जिसे आपको यहां paste करना होगा।
+  
+  #### **Step 2: `vercel.json` File बनाएं**
+  
+  अपने project की root directory में एक और file बनाएं, जिसका नाम `vercel.json` हो। इस file में यह code paste करें:
+  
+  ```json
+  {
+      "version": 2,
+      "builds": [
+          {
+              "src": "app.js",
+              "use": "@vercel/node"
+          }
+      ],
+      "routes": [
+          {
+              "src": "/api/v1/(.*)",
+              "dest": "/app.js"
+          }
+      ]
+  }

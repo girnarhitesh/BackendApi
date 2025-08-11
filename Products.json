@@ -1,0 +1,117 @@
+[
+    {
+        "name": "iphone",
+        "price": "154",
+        "feature": "true",
+        "company": "apple"
+    },
+    {
+        "name": "iphone10",
+        "price": "15400",
+        "feature": "true"
+    },
+    {
+        "name": "iphone12",
+        "price": "122000"
+    },
+    {
+        "name": "iphone13",
+        "price": "154"
+    },
+    {
+        "name": "iphone6",
+        "price": "154",
+        "feature": "true"
+    },
+    {
+        "name": "oppo",
+        "price": "154",
+        "company": "samsung"
+    },
+    {
+        "name": "iphone",
+        "price": "154"
+    },
+    {
+        "name": "vivo",
+        "price": "154",
+        "feature": "true"
+    },
+    {
+        "name": "Sumsung",
+        "price": "154",
+        "company": "samsung"
+    },
+    {
+        "name": "iphone 13 Pro",
+        "price": 125000,
+        "featured": true,
+        "company": "apple"
+    },
+    {
+        "name": "iphone 10",
+        "price": 45000,
+        "featured": true,
+        "company": "apple"
+    },
+    {
+        "name": "MacBook Air M2",
+        "price": 99900,
+        "featured": true,
+        "company": "apple"
+    },
+    {
+        "name": "Dell XPS 13",
+        "price": 120000,
+        "featured": true,
+        "company": "dell"
+    },
+    {
+        "name": "Oppo F19",
+        "price": 19999,
+        "featured": false,
+        "company": "oppo"
+    },
+    {
+        "name": "Vivo V23",
+        "price": 29000,
+        "featured": true,
+        "company": "vivo"
+    },
+    {
+        "name": "Poco M4 Pro",
+        "price": 15000,
+        "featured": false,
+        "company": "mi"
+    },
+    {
+        "name": "Redmi Note 11",
+        "price": 13500,
+        "featured": true,
+        "company": "mi"
+    },
+    {
+        "name": "Realme 9 Pro",
+        "price": 22000,
+        "featured": true,
+        "company": "realme"
+    },
+    {
+        "name": "Intex Aqua S9",
+        "price": 7000,
+        "featured": false,
+        "company": "intex"
+    },
+    {
+        "name": "Sumsung Galaxy S22",
+        "price": 75000,
+        "featured": true,
+        "company": "samsung"
+    },
+    {
+        "name": "Mi Laptop Pro",
+        "price": 65000,
+        "featured": false,
+        "company": "mi"
+    }
+]
