@@ -1,13 +1,15 @@
-
 {
-    "github": {
-      "silent": true
-    },
-    "rewrites": [
+    "version": 2,
+    "builds": [
       {
-        "source": "(.*)",
-        "destination": "/index.html"
+        "src": "app.js",
+        "use": "@vercel/node"
+      }
+    ],
+    "routes": [
+      {
+        "src": "/api/v1/(.*)",
+        "dest": "/app.js"
       }
     ]
   }
-  
