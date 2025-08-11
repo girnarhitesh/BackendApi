@@ -88,6 +88,11 @@ const startServer = async () => {
   app.listen(PORT, () => {
     console.log(`✅ Server is listening on port ${PORT}...`);
   });
+  
+  module.exports = (req, res) => {
+    // Your handler logic here
+    res.status(200).json({ message: "API is working!" });
+  };
 };
 
 startServer();
