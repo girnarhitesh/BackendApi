@@ -10,6 +10,9 @@ const PORT = process.env.PORT || 4000;
 // Database se connect karein
 const connectDB = async () => {
   try {
+    // Debugging line
+    console.log("MONGO_URI value:", process.env.MONGO_URI);
+
     await mongoose.connect(process.env.MONGO_URI);
     console.log("✅ MongoDB Connected...");
   } catch (err) {
@@ -58,24 +61,19 @@ app.get('/api/v1/productstesting', async (req, res) => {
       selectList = select.split(',').join(' ');
     }
 
-    // Mongoose query को chaining के साथ
     let apiData = Product.find(queryObject);
-
-    // Sorting functionality
     apiData = apiData.sort(sortList);
 
-    // Selecting functionality
     if (selectList) {
       apiData = apiData.select(selectList);
     }
-    
-    // Pagination functionality
+
     let page = Number(req.query.page) || 1;
     let limit = Number(req.query.limit) || 3;
-    let skip = (page - 1) * limit; // skip calculation fixed here
-    
+    let skip = (page - 1) * limit;
+
     apiData = apiData.skip(skip).limit(limit);
-    
+
     const products = await apiData;
     res.status(200).json({ products });
   } catch (error) {
