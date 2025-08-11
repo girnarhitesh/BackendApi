@@ -8,8 +8,13 @@
     ],
     "routes": [
       {
-        "src": "/(.*)",
+        "src": "/api/v1/products",
+        "dest": "/app.js"
+      },
+      {
+        "src": "/api/v1/productstesting",
         "dest": "/app.js"
       }
     ]
   }
+  
