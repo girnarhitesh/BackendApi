@@ -1,11 +1,12 @@
 {
   "name": "backend-api",
   "version": "1.0.0",
-  "description": "Simple Express backend API",
+  "description": "Simple Express backend API with React frontend",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "client": "npm start --prefix client"
   },
   "author": "",
   "license": "ISC",
