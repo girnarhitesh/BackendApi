@@ -11,6 +11,11 @@ const PORT = process.env.PORT || 4000;
 // CORS middleware ka use karein
 app.use(cors());
 
+// FIXED: Root route add kiya hai
+app.get('/', (req, res) => {
+    res.send('<h1>E-commerce API is running...</h1>');
+});
+
 // Database se connect karein
 const connectDB = async () => {
   try {
@@ -33,7 +38,7 @@ app.get('/api/v1/products', async (req, res) => {
   }
 });
 
-// productstesting के लिए नया route (filters, sorting, selecting और pagination के साथ)
+// productstesting के लिए route
 app.get('/api/v1/productstesting', async (req, res) => {
   try {
     const { name, company, featured, sort, select } = req.query;
