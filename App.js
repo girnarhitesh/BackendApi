@@ -1,19 +1,20 @@
-require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
-
+const cors = require('cors'); // CORS middleware import karein
+require('dotenv').config();
 
 const Product = require('./models/Product');
 
 const app = express();
 const PORT = process.env.PORT || 4000;
 
+// CORS middleware ka use karein
+app.use(cors());
+
 // Database se connect karein
 const connectDB = async () => {
   try {
-    // Debugging line
     console.log("MONGO_URI value:", process.env.MONGO_URI);
-
     await mongoose.connect(process.env.MONGO_URI);
     console.log("✅ MongoDB Connected...");
   } catch (err) {
@@ -88,7 +89,6 @@ const startServer = async () => {
   app.listen(PORT, () => {
     console.log(`✅ Server is listening on port ${PORT}...`);
   });
-
 };
 
 startServer();
