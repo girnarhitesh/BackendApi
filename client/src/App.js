@@ -55,7 +55,7 @@ const App = () => {
 
   // NOTE: is URL ko aapke deployed backend API ke URL se badal dein.
   // Example: const API_URL = "https://backendapi.onrender.com/api/v1/productstesting";
-  const API_URL = "https://backendapi.onrender.com/api/v1/productstesting";
+  const API_URL = "https://<Backendapi>.railway.app/api/v1/productstesting";
 
   useEffect(() => {
     const fetchProducts = async () => {
