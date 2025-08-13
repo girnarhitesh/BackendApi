@@ -1,4 +1,7 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import Navigation from './Commponets/AllHomesection/Navigation/Navigation';
+import AllHomesection from './Commponets/AllHomesection/AllHomesection';
 
 // Tailwind CSS classes for a modern, responsive design
 const App = () => {
@@ -7,7 +10,7 @@ const App = () => {
   const [error, setError] = useState(null);
 
   // Proxy setup ke baad, ab API URL ko relative path me likha jaega.
-  const API_URL = "/api/v1/productstesting"; 
+  const API_URL = "/api/v1/productstesting";
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -15,11 +18,11 @@ const App = () => {
         console.log("Fetching data from:", API_URL); // Debugging log
         const response = await fetch(API_URL);
         console.log("Response status:", response.status); // Debugging log
-        
+
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
-        
+
         const contentType = response.headers.get("content-type");
         if (contentType && contentType.indexOf("application/json") !== -1) {
           const data = await response.json();
@@ -57,36 +60,14 @@ const App = () => {
   }
 
   return (
-    <div className="bg-gray-50 min-h-screen p-8 font-sans antialiased">
-      <div className="max-w-6xl mx-auto">
-        <h1 className="text-4xl font-extrabold text-gray-900 mb-8 text-center">
-          हमारे उत्पाद
-        </h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {products.map((product) => (
-            <div
-              key={product._id}
-              className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1"
-            >
-              <h2 className="text-xl font-bold text-gray-800 mb-2">{product.name}</h2>
-              <p className="text-lg font-semibold text-indigo-600 mb-2">
-                ${product.price}
-              </p>
-              <div className="flex justify-between items-center text-sm text-gray-500">
-                <span className="bg-gray-200 px-3 py-1 rounded-full font-medium">
-                  कंपनी: {product.company}
-                </span>
-                {product.featured && (
-                  <span className="bg-green-100 text-green-700 px-3 py-1 rounded-full font-medium">
-                    विशेष
-                  </span>
-                )}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
+    <>
+      <BrowserRouter>
+        <Navigation />
+        <Routes>
+          <Route path='/' element={<AllHomesection />} />
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 };
 
