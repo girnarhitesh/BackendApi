@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import Navigation from './Commponets/AllHomesection/Navigation/Navigation';
-import AllHomesection from './Commponets/AllHomesection/AllHomesection';
+import AllHomesection from './Commponets/AllHomesection/AllHomesection'
+import AmazonNavigation from './Commponets/AllHomesection/Navigation/Navigation';
 
 // Tailwind CSS classes for a modern, responsive design
 const App = () => {
@@ -62,7 +62,7 @@ const App = () => {
   return (
     <>
       <BrowserRouter>
-        <Navigation />
+        <AmazonNavigation />
         <Routes>
           <Route path='/' element={<AllHomesection />} />
         </Routes>
