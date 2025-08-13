@@ -1,71 +1,35 @@
 import { useState, useEffect } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap-icons/font/bootstrap-icons.css';
-// Unused icons have been removed for a cleaner import statement.
 
-// Navigation component ko isi file me define kar rahe hain
-function Navigation() {
-  return (
-    <div>
-      <nav className="navbar navbar-expand-lg bg-body-tertiary">
-        <div className="container-fluid">
-          <a className="navbar-brand" href="/">Navbar</a>
-          <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              <li className="nav-item">
-                <a className="nav-link active" aria-current="page" href="/">Home</a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="/link">Link</a>
-              </li>
-              <li className="nav-item dropdown">
-                {/* FIXED: Using <button> for dropdown toggle for better accessibility. */}
-                <button className="nav-link dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Dropdown
-                </button>
-                <ul className="dropdown-menu">
-                  <li><a className="dropdown-item" href="/action">Action</a></li>
-                  <li><a className="dropdown-item" href="/another-action">Another action</a></li>
-                  <li><hr className="dropdown-divider" /></li>
-                  <li><a className="dropdown-item" href="/something-else">Something else here</a></li>
-                </ul>
-              </li>
-              <li className="nav-item">
-                {/* FIXED: Using <span> for disabled link to avoid invalid href warnings. */}
-                <span className="nav-link disabled" aria-disabled="true">Disabled</span>
-              </li>
-            </ul>
-            <form className="d-flex" role="search">
-              <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-              <button className="btn btn-outline-success" type="submit">Search</button>
-            </form>
-          </div>
-        </div>
-      </nav>
-    </div>
-  )
-}
-
+// Tailwind CSS classes for a modern, responsive design
 const App = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // FIXED: The API_URL has been updated with the correct URL from your screenshot.
-  const API_URL = "https://backend-api-chi-amber.vercel.app/api/v1/productstesting";
+  // Proxy setup ke baad, ab API URL ko relative path me likha jaega.
+  const API_URL = "/api/v1/productstesting"; 
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
+        console.log("Fetching data from:", API_URL); // Debugging log
         const response = await fetch(API_URL);
+        console.log("Response status:", response.status); // Debugging log
+        
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
-        const data = await response.json();
-        setProducts(data.products);
+        
+        const contentType = response.headers.get("content-type");
+        if (contentType && contentType.indexOf("application/json") !== -1) {
+          const data = await response.json();
+          setProducts(data.products);
+        } else {
+          // Response is not JSON, might be HTML
+          const textData = await response.text();
+          console.error("Received non-JSON response:", textData);
+          throw new Error("Received non-JSON response from API");
+        }
       } catch (e) {
         setError("Error fetching products: " + e.message);
       } finally {
@@ -78,66 +42,50 @@ const App = () => {
 
   if (loading) {
     return (
-      <div className="d-flex align-items-center justify-content-center min-vh-100 bg-light">
-        <div className="spinner-border text-primary" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </div>
-        <div className="ms-3 h4 font-weight-semibold text-muted">
-          उत्पाद लोड हो रहे हैं...
-        </div>
+      <div className="flex items-center justify-center min-h-screen bg-gray-100">
+        <div className="text-xl font-semibold text-gray-700">Products are loading...</div>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="d-flex align-items-center justify-content-center min-vh-100 bg-danger text-white p-4 rounded-3">
-        <div className="h5 font-weight-medium">{error}</div>
+      <div className="flex items-center justify-center min-h-screen bg-red-100 text-red-700 p-4">
+        <div className="text-lg font-medium">{error}</div>
       </div>
     );
   }
 
   return (
-    <div className="bg-light min-vh-100 font-sans antialiased text-dark">
-      <Navigation /> {/* Yahan Navigation component ko use karein */}
-
-      {/* Main content area with products */}
-      <main className="container my-5">
-        <h1 className="text-center mb-5 fw-bold">
-          हमारे नवीनतम उत्पाद
+    <div className="bg-gray-50 min-h-screen p-8 font-sans antialiased">
+      <div className="max-w-6xl mx-auto">
+        <h1 className="text-4xl font-extrabold text-gray-900 mb-8 text-center">
+          हमारे उत्पाद
         </h1>
-
-        <div className="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {products.map((product) => (
-            <div key={product._id} className="col">
-              <div className="card h-100 border-0 shadow-sm rounded-3 hover-shadow-lg">
-                <div className="card-body d-flex flex-column">
-                  <div className="bg-light rounded-top text-center p-5 mb-3">
-                    <p className="text-muted">Image Placeholder</p>
-                  </div>
-                  <h5 className="card-title fw-bold mb-2">{product.name}</h5>
-                  <p className="card-text fw-semibold text-primary mb-2">
-                    ${product.price}
-                  </p>
-                  <div className="d-flex justify-content-between align-items-center text-sm text-muted mb-3">
-                    <span className="badge bg-light text-secondary">
-                      कंपनी: {product.company}
-                    </span>
-                    {product.featured && (
-                      <span className="badge bg-success">
-                        विशेष
-                      </span>
-                    )}
-                  </div>
-                  <button className="btn btn-primary mt-auto w-100">
-                    कार्ट में जोड़ें
-                  </button>
-                </div>
+            <div
+              key={product._id}
+              className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1"
+            >
+              <h2 className="text-xl font-bold text-gray-800 mb-2">{product.name}</h2>
+              <p className="text-lg font-semibold text-indigo-600 mb-2">
+                ${product.price}
+              </p>
+              <div className="flex justify-between items-center text-sm text-gray-500">
+                <span className="bg-gray-200 px-3 py-1 rounded-full font-medium">
+                  कंपनी: {product.company}
+                </span>
+                {product.featured && (
+                  <span className="bg-green-100 text-green-700 px-3 py-1 rounded-full font-medium">
+                    विशेष
+                  </span>
+                )}
               </div>
             </div>
           ))}
         </div>
-      </main>
+      </div>
     </div>
   );
 };

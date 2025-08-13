@@ -40,6 +40,7 @@ app.get('/api/v1/products', async (req, res) => {
 
 // productstesting के लिए route
 app.get('/api/v1/productstesting', async (req, res) => {
+  console.log("Request received at /api/v1/productstesting"); // Debug log added
   try {
     const { name, company, featured, sort, select } = req.query;
     const queryObject = {};
