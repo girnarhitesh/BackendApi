@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import AllHomesection from './Commponets/AllHomesection/AllHomesection'
-import AmazonNavigation from './Commponets/AllHomesection/Navigation/Navigation';
+import Navigation from './Commponets/AllHomesection/Navigation/Navigation';
+
 
 // Tailwind CSS classes for a modern, responsive design
 const App = () => {
@@ -15,20 +16,21 @@ const App = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        console.log("Fetching data from:", API_URL); // Debugging log
+        console.log("Fetching data from:", API_URL);
         const response = await fetch(API_URL);
-        console.log("Response status:", response.status); // Debugging log
-
+        console.log("Response status:", response.status);
+  
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
-
+  
         const contentType = response.headers.get("content-type");
-        if (contentType && contentType.indexOf("application/json") !== -1) {
+        if (contentType && contentType.includes("application/json")) {
           const data = await response.json();
-          setProducts(data.products);
+  
+          // FakeStore API returns an array, not { products: [] }
+          setProducts(Array.isArray(data) ? data : data.products);
         } else {
-          // Response is not JSON, might be HTML
           const textData = await response.text();
           console.error("Received non-JSON response:", textData);
           throw new Error("Received non-JSON response from API");
@@ -39,7 +41,7 @@ const App = () => {
         setLoading(false);
       }
     };
-
+  
     fetchProducts();
   }, [API_URL]);
 
@@ -62,7 +64,7 @@ const App = () => {
   return (
     <>
       <BrowserRouter>
-        <AmazonNavigation />
+        <Navigation/>
         <Routes>
           <Route path='/' element={<AllHomesection />} />
         </Routes>
